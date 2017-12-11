@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="theme-color" content="#673ab7">
+        <title>Neighborhood Map</title>
+        <link rel="stylesheet" href="assets/css/dist/bundle.css">
+    </head>
+    <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+
+                <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+                    <h3>Neighborhood Map</h3>
+                </div>
+
+                <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+                    <a href="#" class="mdl-layout__tab is-active">Link</a>
+                </div>
+            </header>
+            <main class="mdl-layout__content">
+                <div class="mdl-layout__tab-panel is-active">
+    
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                        <div class="mdl-card mdl-cell mdl-cell--12-col">
+                            <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                                <h4 class="mdl-cell mdl-cell--12-col">Recent Items</h4>
+                                <div id="map"></div>
+    
+                            </div>
+                        </div>
+                    </section>
+    
+                </div>
+            </main>
+
+        </div>
+        <script src="assets/js/dist/bundle.js"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnyTtR_jqpa44ZeXAMRWEf684CdYGs7Oo&callback=initMap"></script>
+    </body>
+</html>
