@@ -18,13 +18,36 @@
 
             </header>
             <main class="mdl-layout__content">
-    
+                
+                <dialog class="mdl-dialog">
+                    
+                    <div id="modal" class="mdl-dialog__content"></div>
+
+                </dialog>
+
                 <div id="list">
                     <a href="#" data-bind="click: removeItem.bind(this, name)">Clear All</a>
-                    <ul class="list-action mdl-list" data-bind="foreach: locations">
+                    <form>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input autocomplete="off" class="mdl-textfield__input" type="text" id="name" name="name" list="locationsNames" data-bind="value: search, valueUpdate: 'keyup'">
+                            <label class="mdl-textfield__label" for="name">Location Name</label>
+                            <datalist data-bind="foreach: locations" id="locationsNames">
+                                <option value="" data-bind="text: name, attr: {value: name}"></option>
+                            </datalist>
+                        </div>
+
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="showFav">
+                                    <input type="checkbox" id="showFav" class="mdl-checkbox__input" data-bind="checked: showFav">
+                                    <span class="mdl-checkbox__label">Favorite locations</span>
+                            </label>
+                        </div>
+
+                    </form>
+                    <ul class="list-action mdl-list" data-bind="foreach: filteredList">
                         <div class="mdl-list__item">
                             <span class="mdl-list__item-primary-content">
-                                <span data-bind="text: name"></span>
+                                <span data-bind="text: name, click: $parent.setActiveLocation"></span>
                             </span>
 
                             <a data-bind="visible: favourite() === false, click: $parent.favouriteToggle" title="Add to favorite" class="mdl-list__item-secondary-action" href="#">
@@ -33,7 +56,7 @@
                                     <path d="M0 0h24v24H0z" fill="none"/>
                                 </svg>
                             </a>
-                           
+
                             <a data-bind="visible: favourite() === true, click: $parent.favouriteToggle" title="Remove from favorite" class="mdl-list__item-secondary-action" href="#">
                                 <svg fill="#3f51b5" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 0h24v24H0z" fill="none"/>
@@ -42,14 +65,7 @@
                                 </svg>
                             </a>
                         </div>
-                        
-                        
-                        <!--
-                        <li data-bind="text: name"></li>
-                        <span data-bind="text: rating" class="rating"></span>
-                        <button data-bind="click: updateItem">Set Fav</button>
-                        <hr>
-                        -->
+
                     </ul>
                 </div>
                 <div id="map"></div>

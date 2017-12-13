@@ -1,4 +1,5 @@
 import Location from '../models/location';
+import AppView from '../views/appView';
 
 function AppViewModel () {
 
@@ -30,10 +31,30 @@ function AppViewModel () {
     const self = this;
 
     self.search = ko.observable('');
-
+    self.showFav = ko.observable(false);
     self.locations = ko.observableArray([]);
 
     self.locations.push(new Location.Location(test));
+
+    AppView.setEvents();
+
+    self.filteredList = ko.dependentObservable(() => {
+        const search = self.search().toLowerCase();
+        const showFav = self.showFav();
+
+        if (search || showFav === true) {
+            return ko.utils.arrayFilter(self.locations(), (location) => {
+                if (showFav) {
+                    return location.name.toLowerCase().indexOf(search) >= 0 &&
+                        location.favourite() === true;
+                }
+                return location.name.toLowerCase().indexOf(search) >= 0;
+            });
+        }
+        else {
+            return self.locations();
+        }
+    });
 
     window.addTest = () => {
         self.locations.push(new Location.Location(test));
@@ -71,7 +92,7 @@ function AppViewModel () {
     };
 
     self.setActiveLocation = (location) => {
-
+        AppView.showModal(location.infoWindow);
     };
 
     return self;

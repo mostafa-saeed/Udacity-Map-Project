@@ -30,3 +30,15 @@ main.mdl-layout__content {
 .list-action {
   width: 300px;
 }
+
+form {
+  text-align: center;
+}
+
+form .mdl-textfield {
+  width: 90%;
+}
+
+form .mdl-checkbox {
+  width: 50%;
+}
