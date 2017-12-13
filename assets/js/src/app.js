@@ -1,12 +1,13 @@
-import $ from './third-party/jquery-3.2.1.min.js';
-import mdl from './third-party/material.min.js';
 import ko from './third-party/knockout-3.4.2.js';
+import $ from './third-party/jquery-3.2.1.min.js';
+// import mdl from './third-party/material.min.js';
+window.$ = window.jQuery = $;
+window.ko = ko;
 
-// window.ko = ko;
+import AppViewModel from './view-models/appViewModel';
 
-window.initMap = function() {
-    const map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
-    });
+
+window.startAPP = () => {
+    console.log('Staring APP!');
+    ko.applyBindings(new AppViewModel());
 };

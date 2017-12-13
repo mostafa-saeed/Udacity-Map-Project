@@ -16,28 +16,47 @@
                     <h3>Neighborhood Map</h3>
                 </div>
 
-                <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-                    <a href="#" class="mdl-layout__tab is-active">Link</a>
-                </div>
             </header>
             <main class="mdl-layout__content">
-                <div class="mdl-layout__tab-panel is-active">
     
-                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-                        <div class="mdl-card mdl-cell mdl-cell--12-col">
-                            <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
-                                <h4 class="mdl-cell mdl-cell--12-col">Recent Items</h4>
-                                <div id="map"></div>
-    
-                            </div>
+                <div id="list">
+                    <ul class="list-action mdl-list" data-bind="foreach: locations">
+                        <div class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">
+                                <span data-bind="text: name"></span>
+                            </span>
+
+                            <a data-bind="visible: favourite === false, click: $parent.favouriteToggle.bind(this, $index())" title="Add to favorite" class="mdl-list__item-secondary-action" href="#">
+                                <svg fill="#3f51b5" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                </svg>
+                            </a>
+                           
+                            <a data-bind="visible: favourite === true, click: $parent.removeItem.bind(this, name)" title="Remove from favorite" class="mdl-list__item-secondary-action" href="#">
+                                <svg fill="#3f51b5" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/>
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                </svg>
+                            </a>
                         </div>
-                    </section>
-    
+                        
+                        
+                        <!--
+                        <li data-bind="text: name"></li>
+                        <span data-bind="text: rating" class="rating"></span>
+                        <button data-bind="click: updateItem">Set Fav</button>
+                        <hr>
+                        -->
+                    </ul>
                 </div>
+                <div id="map"></div>
+
             </main>
 
         </div>
         <script src="assets/js/dist/bundle.js"></script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnyTtR_jqpa44ZeXAMRWEf684CdYGs7Oo&callback=initMap"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnyTtR_jqpa44ZeXAMRWEf684CdYGs7Oo&callback=startAPP"></script>
     </body>
 </html>
