@@ -72,7 +72,7 @@ function Location(location) {
         latLng,
         rating,
         infoWindow,
-        favourite: false
+        favourite: ko.observable(false)
     };
 }
 

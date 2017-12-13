@@ -1,60 +1,48 @@
 import Location from '../models/location';
 
-const test = new Location.Location({
-    'name': 'Rinaldi\'s Ice Cream & Good Food',
-    'image': 'https://s3-media2.fl.yelpcdn.com/bphoto/6l4QvSREnT_OZX4be_196w/o.jpg',
-    'url': 'https://www.yelp.com/biz/rinaldis-ice-cream-and-good-food-cairo?adjust_creative=sM2HM_mE-6QIWS6Xj7WZgQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=sM2HM_mE-6QIWS6Xj7WZgQ',
-    'rating': 4,
-    'latLng': {
-        'latitude': 42.318185380693,
-        'longitude': -74.0309000015259
-    },
-    'address': {
-        'address1': '450 Rt 145',
-        'address2': '',
-        'address3': '',
-        'city': 'Cairo',
-        'zip_code': '12413',
-        'country': 'US',
-        'state': 'NY',
-        'display_address': [
-            '450 Rt 145',
-            'Cairo, NY 12413'
-        ]
-    },
-    'phone': '(518) 622-3355',
-});
-
 function AppViewModel () {
+
+    const test = {
+        'name': 'Rinaldi\'s Ice Cream & Good Food',
+        'image': 'https://s3-media2.fl.yelpcdn.com/bphoto/6l4QvSREnT_OZX4be_196w/o.jpg',
+        'url': 'https://www.yelp.com/biz/rinaldis-ice-cream-and-good-food-cairo?adjust_creative=sM2HM_mE-6QIWS6Xj7WZgQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=sM2HM_mE-6QIWS6Xj7WZgQ',
+        'rating': 4,
+        'latLng': {
+            'latitude': 42.318185380693,
+            'longitude': -74.0309000015259
+        },
+        'address': {
+            'address1': '450 Rt 145',
+            'address2': '',
+            'address3': '',
+            'city': 'Cairo',
+            'zip_code': '12413',
+            'country': 'US',
+            'state': 'NY',
+            'display_address': [
+                '450 Rt 145',
+                'Cairo, NY 12413'
+            ]
+        },
+        'phone': '(518) 622-3355',
+    };
+
     const self = this;
 
     self.search = ko.observable('');
 
-    self.locations = ko.observableArray(JSON.parse(Location.getLocations()));
+    self.locations = ko.observableArray([]);
 
-    // console.log('Done', JSON.parse(Location.getLocations()));
+    self.locations.push(new Location.Location(test));
 
     window.addTest = () => {
-        self.addItem();
+        self.locations.push(new Location.Location(test));
     };
 
-    window.clearTest = () => {
-        self.clearItems();
-    };
-
-    self.clearItems = () => {
-        self.locations([]);
-        Location.saveLocations(ko.toJSON(self.locations()));
-    };
-
-    self.addItem = () => {
-        self.locations.push(test);
-        Location.saveLocations(ko.toJSON(self.locations));
-    };
-
-    self.removeItem = (name) => {
+    self.removeItem = () => {
         self.locations.remove((location) => {
-            return location.name === name;
+            // return location.name === name;
+            return true;
         });
     };
 
@@ -76,10 +64,14 @@ function AppViewModel () {
         });
     });
 
-    self.favouriteToggle = (index) => {
-        self.locations()[index].favourite = !self.locations()[index].favourite;
-        console.log('testing', self.locations()[index]);
+    self.favouriteToggle = (location) => {
+        const toggle = !location.favourite();
+        location.favourite(toggle);
         
+    };
+
+    self.setActiveLocation = (location) => {
+
     };
 
     return self;
