@@ -1,8 +1,7 @@
 module.exports = {
-    setEvents: () => {
-
-        $('form').submit((e) => {
-            e.preventDefault();
-        });
+    formSubmit: (form) => {
+        // we could do some validation before submit
+        // but not in this case :)
+        return;
     }
 };

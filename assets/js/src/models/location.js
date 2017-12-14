@@ -22,10 +22,11 @@ const formatAddress = (address) => {
 const generateInfoWindow = (location, formatAddress) => {
     // extract these values from location
     const { name, contact, url } = location;
+    const heading = (url) ? `<h2> <a href="${url}"> ${name} </a> </h2>` : `<h2> ${name} </h2>`;
 
-    return `<h2> <a href="${url}"> ${name} </a> </h2>
+    return `${heading}
             <span class="address"> ${formatAddress} </span>
-            <p class="phone"> ${contact.formattedPhone} </p>
+            <p class="phone"> ${contact.formattedPhone || ''} </p>
     `;
 };
 

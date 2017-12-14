@@ -17,9 +17,6 @@ function AppViewModel () {
     });
     self.infoWindow = new google.maps.InfoWindow();
     self.bounds = new google.maps.LatLngBounds();
-    
-    // init view events
-    AppView.setEvents();
 
     // load locations data from FourSquare API
     LocationModel.getLocations().done((res) => {
@@ -111,6 +108,11 @@ function AppViewModel () {
     // listview item click
     self.setActiveLocation = (location) => {
         google.maps.event.trigger(location.marker, 'click');        
+    };
+
+    // from submit binding
+    self.formSubmit = (form) => {
+        AppView.formSubmit(form);
     };
 
     return self;
