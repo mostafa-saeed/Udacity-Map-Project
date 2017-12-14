@@ -49,6 +49,10 @@ function AppViewModel () {
         });
         self.map.fitBounds(self.bounds);
 
+        self.filteredList.subscribe(() => {
+            self.toggleMarkers();
+        });
+
     });
 
     self.filteredList = ko.dependentObservable(() => {
@@ -68,6 +72,16 @@ function AppViewModel () {
             return self.locations();
         }
     });
+
+    self.toggleMarkers = () => {
+        self.locations().forEach((loc) => {
+            loc.marker.setVisible(false);
+        });
+
+        self.filteredList().forEach((loc) => {
+            loc.marker.setVisible(true);
+        });
+    };
 
     self.favouriteToggle = (location) => {
         const toggle = !location.favourite();

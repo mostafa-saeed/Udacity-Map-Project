@@ -43,8 +43,11 @@
                             </label>
                         </div>
 
+                        <p data-bind="visible: filteredList().length < 1">No Ice Cream locations were found :'(</p>
+
                     </form>
                     <ul class="list-action mdl-list" data-bind="foreach: filteredList">
+
                         <div class="mdl-list__item">
                             <span class="mdl-list__item-primary-content">
                                 <span data-bind="text: name, click: $parent.setActiveLocation"></span>
