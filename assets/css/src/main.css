@@ -18,17 +18,27 @@ main.mdl-layout__content {
 }
 
 #map {
-  width: 70%;
+  width: 100%;
 }
 
 #list {
-  max-width: 30%;
+  width: 300px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 .list-action {
-  width: 300px;
+  width: 100%;
+}
+
+div.mdl-list__item:hover {
+  background: #ccc;
+}
+
+@media screen and (min-width: 480px) {
+  #list {
+    min-width: 300px;
+  }
 }
 
 form {

@@ -1,3 +1,4 @@
+// import libraries
 import ko from './third-party/knockout-3.4.2.js';
 import $ from './third-party/jquery-3.2.1.min.js';
 window.$ = window.jQuery = $;
@@ -6,8 +7,13 @@ window.ko = ko;
 
 import AppViewModel from './view-models/appViewModel';
 
+// handle google maps error
+window.mapError = () => {
+    alert('Can\'t load Google Maps API!');
+};
 
+// Application strating point
 window.startAPP = () => {
-    console.log('Staring APP!');
     ko.applyBindings(new AppViewModel());
 };
+

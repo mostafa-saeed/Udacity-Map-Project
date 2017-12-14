@@ -12,18 +12,12 @@
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
             <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
 
-                <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+                <div class="mdl-layout__header-row">
                     <h3>Neighborhood Map</h3>
                 </div>
 
             </header>
             <main class="mdl-layout__content">
-                
-                <dialog class="mdl-dialog">
-                    
-                    <div id="modal" class="mdl-dialog__content"></div>
-
-                </dialog>
 
                 <div id="list">
 
@@ -48,9 +42,9 @@
                     </form>
                     <ul class="list-action mdl-list" data-bind="foreach: filteredList">
 
-                        <div class="mdl-list__item">
+                        <div class="mdl-list__item" data-bind="click: $parent.setActiveLocation">
                             <span class="mdl-list__item-primary-content">
-                                <span data-bind="text: name, click: $parent.setActiveLocation"></span>
+                                <span data-bind="text: name"></span>
                             </span>
 
                             <a data-bind="visible: favourite() === false, click: $parent.favouriteToggle" title="Add to favorite" class="mdl-list__item-secondary-action" href="#">
@@ -77,6 +71,6 @@
 
         </div>
         <script src="assets/js/dist/bundle.js"></script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnyTtR_jqpa44ZeXAMRWEf684CdYGs7Oo&callback=startAPP"></script>
+        <script async defer onerror="mapError()" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnyTtR_jqpa44ZeXAMRWEf684CdYGs7Oo&callback=startAPP"></script>
     </body>
 </html>

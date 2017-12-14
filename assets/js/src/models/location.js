@@ -11,14 +11,16 @@ const FOUR_SQUARE_SEARCH_DATA = {
     categoryId: '4bf58dd8d48988d1c9941735,512e7cae91d4cbb4e5efe0af'
 };
 
-
+// combine formatted address to one string
 const formatAddress = (address) => {
     return address.formattedAddress.reduce((a, b) => {
         return a + b;
     });
 };
 
+// generate HTML template for marker info window
 const generateInfoWindow = (location, formatAddress) => {
+    // extract these values from location
     const { name, contact, url } = location;
 
     return `<h2> <a href="${url}"> ${name} </a> </h2>
@@ -27,6 +29,8 @@ const generateInfoWindow = (location, formatAddress) => {
     `;
 };
 
+
+// generate ajax promise
 const apiLoad = () => {
     return $.ajax({
         type: 'GET',
@@ -35,8 +39,10 @@ const apiLoad = () => {
     });
 };
 
-
+// Locations model
+// ToDo: allow data local storage
 function Location(venueLocation) {
+    // extract these values from venueLocation
     const { name, location } = venueLocation;
     const formatedAddress = formatAddress(location);
     const infoWindow = generateInfoWindow(venueLocation, formatedAddress);
@@ -53,7 +59,7 @@ function Location(venueLocation) {
 }
 
 function getLocations() {
-
+    // ToDo: localstorage check
     return apiLoad();
 
 }
