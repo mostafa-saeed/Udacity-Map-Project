@@ -1,101 +1,64 @@
-const YELP_API_END_POINT = 'https://api.yelp.com/v3/businesses/search';
-const YELP_SEARCH_DATA = {
-    categories: 'icecream',
-    location: 'Cairo,NY'
+const FOUR_SQUARE_END_POINT = 'https://api.foursquare.com/v2/venues/search';
+const FOUR_SQUARE_CLIENT_ID = 'XP4LJNBULP5CXM40EHT0RXLXROFYU2Z00FEUGWUG2UEOGKXF';
+const FOUR_SQUARE_CLIENT_SECRET = 'J0TW4DT3VAY3WG1SLHXDIOA2Y4CGEQO2Y4HRKWEJINMDKZRB';
+const FOUR_SQUARE_SEARCH_DATA = {
+    client_id: FOUR_SQUARE_CLIENT_ID,
+    client_secret: FOUR_SQUARE_CLIENT_SECRET,
+    v: '20170801',
+    near: 'Mountain View,CA',
+    // near: 'Cairo,NY',
+    limit: 10,
+    categoryId: '4bf58dd8d48988d1c9941735,512e7cae91d4cbb4e5efe0af'
 };
-const YELP_ACCESS_TOKEN = 'Bearer vn-fdF-tei-5g7Mgwf7fbp0eSFfY2xtMiSr77W1HTnDXOaHKUb1TrYledv_UwJVuZhtFeADWN46Ft8w_THJkZxaCQ2k6cXct9mUAw8E1IOhglH1fta8bo7vmRdMwWnYx';
+
 
 const formatAddress = (address) => {
-    return address.display_address.reduce((a, b) => {
+    return address.formattedAddress.reduce((a, b) => {
         return a + b;
     });
 };
 
 const generateInfoWindow = (location, formatAddress) => {
-    const { name, image, rating, phone, url } = location;
+    const { name, contact, url } = location;
 
     return `<h2> <a href="${url}"> ${name} </a> </h2>
-            <p> <img class="image" src="${image}" alt="${name}'s Image> <span class="rating"> ${rating} </span> </p>
             <span class="address"> ${formatAddress} </span>
-            <p class="phone"> ${phone} </p>
+            <p class="phone"> ${contact.formattedPhone} </p>
     `;
 };
 
-const localstorageLoad = () => {
-    if (typeof(Storage) === undefined)
-        return false;
-    
-    let locations = localStorage.getItem('locations');
-
-    if (!locations)
-        return false;
-
-    // console.log('before', typeof locations, locations);
-    locations = JSON.parse(locations);
-    // console.log('after', typeof locations, locations);
-
-    if (locations.lenth < 1)
-        return false;
-
-    return locations;
-};
-
 const apiLoad = () => {
-    $.ajax({
+    return $.ajax({
         type: 'GET',
-        url: YELP_API_END_POINT,
-        data: YELP_SEARCH_DATA,
-        beforeSend: (request) => {
-            request.setRequestHeader('Authorization', YELP_ACCESS_TOKEN);
-            console.log('request update', request);
-        },
-        success: (result) => {
-            // map the result
-            // save it to localstorage
-            console.log('Done', result);
-            return result;
-        },
-        error: function(jqXHR, status, err) {
-            console.log('Error', err);
-        }
+        url: FOUR_SQUARE_END_POINT,
+        data: FOUR_SQUARE_SEARCH_DATA
     });
 };
 
 
-function Location(location) {
-    const { name, address, rating, latLng } = location;
-    const formatedAddress = formatAddress(address);
-    const infoWindow = generateInfoWindow(location, formatedAddress);
+function Location(venueLocation) {
+    const { name, location } = venueLocation;
+    const formatedAddress = formatAddress(location);
+    const infoWindow = generateInfoWindow(venueLocation, formatedAddress);
 
     return {
         name,
-        latLng,
-        rating,
+        latLng: {
+            lat: location.lat,
+            lng: location.lng
+        },
         infoWindow,
         favourite: ko.observable(false)
     };
 }
 
 function getLocations() {
-    const localStorageLocations = localstorageLoad();
 
-    if (localStorageLocations)
-        return localStorageLocations;
-    else
-        return apiLoad();
-}
+    return apiLoad();
 
-function saveLocations(locations) {
-    if (typeof(Storage) === undefined)
-        return;
-    
-    locations = JSON.stringify(locations);
-    
-    localStorage.setItem('locations', locations);
 }
 
 module.exports = {
     Location,
-    getLocations,
-    saveLocations
+    getLocations
 };

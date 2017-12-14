@@ -26,7 +26,7 @@
                 </dialog>
 
                 <div id="list">
-                    <a href="#" data-bind="click: removeItem.bind(this, name)">Clear All</a>
+
                     <form>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input autocomplete="off" class="mdl-textfield__input" type="text" id="name" name="name" list="locationsNames" data-bind="value: search, valueUpdate: 'keyup'">
@@ -39,7 +39,7 @@
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="showFav">
                                     <input type="checkbox" id="showFav" class="mdl-checkbox__input" data-bind="checked: showFav">
-                                    <span class="mdl-checkbox__label">Favorite locations</span>
+                                    <span class="mdl-checkbox__label">Favorite locations only</span>
                             </label>
                         </div>
 
